@@ -39,7 +39,7 @@ After you entered the container, verify the setup:
 ### executed inside the tooling container
 
 #### list of training folders
-cd mnt/kkp_fundamentals
+cd ~/mnt/kkp_fundamentals/
 ls -la
 
 #### version json with kubeone v1.2.3 should be shown

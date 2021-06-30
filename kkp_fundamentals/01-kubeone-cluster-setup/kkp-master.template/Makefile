@@ -6,7 +6,7 @@ TF_CONFIG="./tf-infra"    #relative from K1_CONFIG
 K1_KUBECONFIG ?= kkp-master-kubeconfig
 
 # from K1_CONFIG location
-K1_SSH_KEY="./../../../.secrets/id_rsa"
+K1_SSH_KEY="./../../.secrets/id_rsa"
 #K1_CRED_FILE="./secrets/credentials.kubermatic.yml"
 #K1_CRED_FLAG=-c ${K1_CRED_FILE}
 #CLOUD_CREDENTIALS_ENV_FILE="./secret/cloud_env.sh"
