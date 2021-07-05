@@ -15,8 +15,8 @@ cd ~/mnt/kkp_fundamentals/src/kkp-setup
 
 The installation and configuration for a KKP system consists of two important files:
 
-- A values.yaml used to configure the various Helm charts KKP ships with. This is where nginx, Prometheus, Dex etc. can be adjusted to the target environment. A single values.yaml is used to configure all Helm charts combined.
-- A kubermatic.yaml that configures KKP itself and is an instance of the KubermaticConfiguration CRD. This configuration will be stored in the cluster and serves as the basis for the Kubermatic Operator to manage the actual KKP installation.
+- A **values.yaml** used to configure the various Helm charts KKP ships with. This is where nginx, Prometheus, Dex etc. can be adjusted to the target environment. A single values.yaml is used to configure all Helm charts combined.
+- A **kubermatic.yaml** that configures KKP itself and is an instance of the KubermaticConfiguration CRD. This configuration will be stored in the cluster and serves as the basis for the Kubermatic Operator to manage the actual KKP installation.
 
 Let's start with `values.yaml`. Find out values which need to be replaced.
 
@@ -51,10 +51,10 @@ export DNS_ZONE=student-XX-xxxx
 sed -i 's/TODO-STUDENT-DNS/'"$DNS_ZONE"'/g' ./*.yaml
 
 ## check results
-grep --line-number TODO-STUDENT-DNS ./*.yaml
 # Output will be blank if everything is correct.
-grep --line-number $DNS_ZONE ./*.yaml
+grep --line-number TODO-STUDENT-DNS ./*.yaml
 #Check if everything is correct and is matching your configured target DNS Zone!
+grep --line-number $DNS_ZONE ./*.yaml
 ## Output
 ./kubermatic.globalsetting.yaml:14:    url: https://kubermatic.student-00.loodse.training/rest-api
 ./kubermatic.yaml:33:    domain: kubermatic.student-00.loodse.training
