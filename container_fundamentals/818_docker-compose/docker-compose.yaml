@@ -1,0 +1,27 @@
+version: "3.4"
+services:
+  grafana:
+    image: grafana/grafana:7.4.3
+    container_name: grafana
+    ports:
+      - "80:3000"
+  prometheus:
+    image: prom/prometheus:v2.25.0
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yaml
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yaml"
+    ports:
+      - "9090:9090"
+  cadvisor:
+    image: google/cadvisor:v0.33.0
+    container_name: cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk:/dev/disk/:ro
+    ports:
+      - "8080:8080"
