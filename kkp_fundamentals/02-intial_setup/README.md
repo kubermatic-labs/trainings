@@ -14,7 +14,7 @@ In addition to the `values.yaml` for configuring the charts, a number of options
 
 A minimal configuration for Helm charts sets the options. A template what you will fill out step-by-step is placed at [kkp-setup.template/values.yaml](kkp-setup.template/values.yaml). To configure your own version, please create first a copy to your `kkp-setup` folder:
 ```bash
-cd [training-repo]
+cd [training-repo] #kkp_fundamentals
 cp -r 02-intial_setup/kkp-setup.template src/kkp-setup
 ```
 
@@ -22,11 +22,15 @@ For the purpose of this chapter, we only need to configure a few things in the `
 ```bash
 cd src/kkp-setup
 grep --line-number TODO values.yaml
-values.yaml:10:#          "auth": "TODO ADD PULL SECRET",
-values.yaml:20:    host: "kubermatic.TODO-STUDENT-DNS.loodse.training"
-values.yaml:30:    - https://kubermatic.TODO-STUDENT-DNS.loodse.training
-values.yaml:32:    - https://kubermatic.TODO-STUDENT-DNS.loodse.training/projects
-values.yaml:35:    - email: "TODO-STUDENT-EMAIL@loodse.training"
+values.yaml:8:#          "auth": "TODO ADD PULL SECRET",
+values.yaml:18:    host: "kubermatic.TODO-STUDENT-DNS.loodse.training"
+values.yaml:25:    secret: "TODO-A-RANDOM-KEY"
+values.yaml:27:    - https://kubermatic.TODO-STUDENT-DNS.loodse.training
+values.yaml:28:    - https://kubermatic.TODO-STUDENT-DNS.loodse.training/projects
+values.yaml:31:    - email: "TODO-STUDENT-EMAIL@loodse.training"
+values.yaml:36:      username: "TODO-STUDENT-EMAIL@loodse.training"
+values.yaml:47:    accessKey: "TODO-GENERATED-MINIO-AWS-ACCESS-KEY"
+values.yaml:51:    secretKey: "TODO-GENERATED-MINIO-AWS-SECRET-KEY"
 ```
 
 ### Configure an image pull secret for Kubermatic images
@@ -107,7 +111,7 @@ cat /dev/urandom | tr -dc A-Za-z0-9 | head -c32
     issuerCookieKey: TODO-A-RANDOM-KEY
     serviceAccountKey: TODO-A-RANDOM-KEY
 ```
-Now as KKP and [DEX](https://github.com/dexidp/dex) can talk to each other, we need to configure a so called [DEX Connector](https://github.com/dexidp/dex#connectors) for the user authentication at the DEX authentication proxy. For now, we will just configure one static user. For this you need to replace `TODO-STUDENT-EMAIL@loodse.training` with your `student-XX-xxx@loodse.training` email. The default password is `password`
+Now as KKP and [DEX](https://github.com/dexidp/dex) can talk to each other, we need to configure a so called [DEX Connector](https://github.com/dexidp/dex#connectors) for the user authentication at the DEX authentication proxy. For now, we will just configure one static user. For this you need to replace `TODO-STUDENT-EMAIL@loodse.training` with your `student-XX-xxx@loodse.training` email. The default password is `password`. You can replace it by running command `htpasswd -bnBC 10 "" PASSWORD_HERE | tr -d ':\n' | sed 's/$2y/$2a/'` by replacing `PASSWORD_HERE` with your desired password. 
 
 ```yaml
   # For testing purposes, we configure a single static user/password combination.
@@ -120,6 +124,8 @@ Now as KKP and [DEX](https://github.com/dexidp/dex) can talk to each other, we n
       username: "TODO-STUDENT-EMAIL@loodse.training"
       userID: "08a8684b-db88-4b73-90a9-3cd1661f5466"
 ```
+You can skip minio credentials config for this training. But if you want, you can replace `TODO-GENERATED-MINIO-AWS-ACCESS-KEY` and `TODO-GENERATED-MINIO-AWS-SECRET-KEY` with mentioned command in comment of `values.yaml` file. (minio is used to create backup of user cluster etcd)
+
 **NOTE:** This is **not recommended for production!**
 In a later chapter we  will change the ID to a proper OIDC Authentication configuration.
 
@@ -145,10 +151,10 @@ grep --line-number TODO-STUDENT-DNS ./*.yaml
 # get gcloud DNS_ZONE
 gcloud dns managed-zones list
 NAME                DNS_NAME                             DESCRIPTION  VISIBILITY
-student-XX-training student-XX-training.loodse.training. k8c          public
+student-XX-xxxx     student-XX-xxxx.loodse.training.     k8c          public
 
 ## adjust to your zone name
-export DNS_ZONE=student-XX-training
+export DNS_ZONE=student-XX-xxxx
 # sed -i 's/original/new/g' file
 sed -i 's/TODO-STUDENT-DNS/'"$DNS_ZONE"'/g' ./*.yaml
 
@@ -177,7 +183,8 @@ download-kkp-release:
 ```
 Download it:
 ```
-make download-kkp-release
+make download-kkp-ee-release # To download EE version
+make download-kkp-ce-release # To download CE version
 ```
 
 ## Install Basic Setup and Dependencies
@@ -188,10 +195,10 @@ ls -la ./releases/
 total 12
 drwxr-xr-x 3 kubermatic root 4096 May 27 22:52 .
 drwxr-xr-x 3 kubermatic root 4096 May 27 22:52 ..
-drwxr-xr-x 4 kubermatic root 4096 May 27 22:52 v2.17.0
+drwxr-xr-x 4 kubermatic root 4096 May 27 22:52 v2.17.1
 
 #... use latest version
-./releases/v2.17.0/kubermatic-installer --verbose --charts-directory ./releases/v2.17.0/charts deploy --config kubermatic.yaml --helm-values values.yaml
+./releases/v2.17.1/kubermatic-installer --verbose --charts-directory ./releases/v2.17.1/charts deploy --config kubermatic.yaml --helm-values values.yaml
 ```
 
 You will get receive the following error:
@@ -326,7 +333,7 @@ dex                         kubermatic.student-00.loodse.training             80
 
 With the `kubermatic.yaml` we trigger the deployment of the Kubermatic components by the so-called "Kubermatic Operator", see the logs:
 ``bash
-k logs -n kubermatic kubermatic-operator-xxxx-xxxx
+kubectl logs -n kubermatic kubermatic-operator-xxxx-xxxx
 ``
 The operator will ensure, based on the `kubermatic.yaml` specified `KubermaticConfiguration` is applied. For more information read:[Kubermatic Docs > Configuration](https://docs.kubermatic.com/kubermatic/master/tutorials_howtos/kkp_configuration/).
 For any later change you can just apply the modified'`kubermatic.yaml`

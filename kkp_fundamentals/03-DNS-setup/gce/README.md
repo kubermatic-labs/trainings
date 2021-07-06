@@ -4,7 +4,7 @@ To get a trusted SSL certificate, and a proper DNS name we now need to set two D
 - `kubermatic.YOUR-DNS-ZONE.loodse.training` for the [Kubermatic Dashboard](https://github.com/kubermatic/dashboard)
 - `*.kubermatic.YOUR-DNS-ZONE.loodse.training` for monitoring/logging components behind the `oauth` Dex/ingress
 
-For reference see the Docs: [Kubermatic Docs - Install Kubermatic - Create DNS Records](https://docs.kubermatic.com/kubermatic/master/installation/install_kubermatic/#create-dns-records)
+For reference see the Docs: [Kubermatic Docs - Install Kubermatic - Create DNS Records](https://docs.kubermatic.com/kubermatic/master/guides/installation/install_kkp_ce/#:~:text=create%20dns%20records)
 
 **ATTENTION: some of the IP's can only be determined after the matching Helm chart / Load Balancer is deployed**
 
@@ -18,12 +18,12 @@ gcloud dns managed-zones list
 ```
 ```
 NAME                DNS_NAME                             DESCRIPTION  VISIBILITY
-student-XX-training student-XX-training.loodse.training. k8c          public
+student-XX-xxxx     student-XX-xxxx.loodse.training.     k8c          public
 ```
 ```bash
 ## adjust to your zone NAME 
 ## WITHOUT loodse.training!
-export DNS_ZONE=student-XX-training
+export DNS_ZONE=student-XX-xxxx
 gcloud dns record-sets transaction start --zone=$DNS_ZONE
 ```
 
@@ -98,14 +98,14 @@ Address: 34.91.40.238
 Test if the ingress server is reachable:
 ```bash
 ## curl the http endpoind
-curl https://kubermatic.$DNS_ZONE.loodse.training
+curl http://kubermatic.$DNS_ZONE.loodse.training
 ```
 ```
 <html>
-<head><title>404 Not Found</title></head>
+<head><title>308 Permanent Redirect</title></head>
 <body>
-<center><h1>404 Not Found</h1></center>
-<hr><center>nginx/1.17.10</center>
+<center><h1>308 Permanent Redirect</h1></center>
+<hr><center>nginx</center>
 </body>
 </html>
 ```
@@ -149,15 +149,16 @@ kubectl -n kubermatic get ingress,certificate
 ```
 ```
 NAME                            HOSTS                                      ADDRESS        PORTS     AGE
-ingress.extensions/kubermatic   kubermatic.student-00.loodse.training   34.91.40.238   80, 443   15m
+ingress.extensions/kubermatic   kubermatic.student-00.loodse.training      34.91.40.238   80, 443   15m
 
 NAME                                     READY   SECRET           AGE
 certificate.cert-manager.io/kubermatic   True    kubermatic-tls   15m
 ```
+## Login to Kubermatic Dashboard
 
-Youd should now be able to see the Dashboard and login with your configured e-mail ID of user at your `values.yaml`, for example: `student-XX-xxx@loodse.training` and password `password`:
+Youd should now be able to open the Dashboard in browser at `https://kubermatic.$DNS_ZONE.loodse.training` and login with your configured e-mail ID of user at your `values.yaml`, for example: `student-XX-xxx@loodse.training` and default password is `password`. You can check your password with below steps.
 ```bash
-cd [training-repo]
+cd [training-repo] #kkp_fundamentals
 cd src/kkp-setup/
 grep -C 5 static values.yaml
 ```

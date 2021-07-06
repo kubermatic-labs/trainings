@@ -18,7 +18,7 @@ cp -r ../k1_fundamentals/.secrets ./
 
 ## Option 2: Create fresh credentials
 ```bash
-cd [training-repo]
+cd [training-repo]  #kkp_fundamentals
 mkdir .secrets
 ```
 To be able to create a new kubeone based master cluster, we need at least the following secrets under the  `.secrets` folder:
@@ -57,7 +57,7 @@ mkdir src
 cp -r 01_master_cluster/gce/kkp-master.template src/kkp-master
 # replace TODO-YOUR-GCP-PROJECT-ID with your project id 
 cd src/kkp-master
-sed -i 's/TODO-YOUR-GCP-PROJECT-ID/'"$GCP_PROJECT_ID"'/g' **/*
+sed -i 's/TODO-YOUR-GCP-PROJECT-ID/'"$GCP_PROJECT_ID"'/g' */**
 
 # start SSH agent and add id-rsa
 source ../../helper-scripts/source-ssh-agent.sh
