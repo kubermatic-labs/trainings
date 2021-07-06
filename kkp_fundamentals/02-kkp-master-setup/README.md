@@ -46,7 +46,7 @@ NAME                DNS_NAME                             DESCRIPTION  VISIBILITY
 student-XX-xxxx     student-XX-xxxx.loodse.training.     k8c          public
 
 ## export your zone name
-export DNS_ZONE=student-XX-xxxx
+export DNS_ZONE=student-XX-xxxx   #WITHOUT loodse.training!
 # Replace TODO-STUDENT-DNS with your DNS.
 sed -i 's/TODO-STUDENT-DNS/'"$DNS_ZONE"'/g' ./*.yaml
 
