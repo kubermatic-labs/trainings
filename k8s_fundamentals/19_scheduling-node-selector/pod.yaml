@@ -7,4 +7,4 @@ spec:
     - name: nginx
       image: nginx:1.19.2
   nodeSelector:
-    preferred: "true"
+    env: "prod"
