@@ -4,3 +4,6 @@
 *.csr
 *.pem
 .kube
+/k1_fundamentals/src/
+/k1_fundamentals/src/gce/
+/kkp_fundamentals/src/

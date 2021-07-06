@@ -14,7 +14,7 @@ In addition to the `values.yaml` for configuring the charts, a number of options
 
 A minimal configuration for Helm charts sets the options. A template what you will fill out step-by-step is placed at [kkp-setup.template/values.yaml](kkp-setup.template/values.yaml). To configure your own version, please create first a copy to your `kkp-setup` folder:
 ```bash
-cd [training-repo]
+cd [training-repo] #kkp_fundamentals
 cp -r 02-intial_setup/kkp-setup.template src/kkp-setup
 ```
 
