@@ -173,6 +173,8 @@ oauth        dex-tls          True    dex-tls          letsencrypt-prod   Certif
 
 **Note:** If after a while still certificates are not `Ready` you can delete them by command `kubectl delete certificate -n kubermatic kubermatic-tls` and wait for new certificate to be validated.
 
+---
+
 ## Login to KKP Dashboard
 
 You should now be able to open the KKP Dashboard and login with your configured e-mail ID of user at your `values.yaml`, for example: `student-XX-xxxx@loodse.training` and password `password`. You can check configured values by following command.
@@ -197,5 +199,11 @@ kubectl get project
 
 ```bash
 NAME         AGE    HUMANREADABLENAME   STATUS
-vkhbtrph6s   2m1s   student-00          Active
+vkhbtrph6s   2m1s   student-XX          Active
 ```
+
+---
+
+## Check Cluster Creation
+
+If you will click on `create cluster` button at Kubermatic UI, you will see the blank screen. Which is due to we have not added seed yet. Once we will add seed cluster, you will see Provider option enabled.
