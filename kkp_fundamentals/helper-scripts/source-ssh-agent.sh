@@ -3,8 +3,8 @@
 eval `ssh-agent`
 echo "ssh-agent started!"
 
-FOLDER=$(dirname $BASH_SOURCE)
-PK_FILE=$FOLDER/../.secrets/id_rsa
+FOLDER=$(dirname $0)
+PK_FILE=$FOLDER/../../.secrets/id_rsa
 
 echo "set permissions $PK_FILE"
 chmod 0600 $PK_FILE

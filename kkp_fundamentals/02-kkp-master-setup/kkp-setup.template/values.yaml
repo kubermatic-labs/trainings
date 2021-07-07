@@ -1,16 +1,3 @@
-# Kubermatic Operator
-kubermaticOperator:
-  # insert the Docker authentication JSON provided by Kubermatic here
-  imagePullSecret: |
-    {
-      "auths": {
-        "quay.io": {
-#          "auth": "TODO-ADD-PULL-SECRET",
-          "email": ""
-        }
-      }
-    }
-
 # Dex Is the OpenID Provider for Kubermatic.
 dex:
   # configure your base domain, under which the Kubermatic dashboard shall be available
@@ -31,21 +18,8 @@ dex:
     - email: "TODO-STUDENT-EMAIL@loodse.training"
       # bcrypt hash of the string "password", can be created using recent versions of htpasswd:
       # `htpasswd -bnBC 10 "" PASSWORD_HERE | tr -d ':\n' | sed 's/$2y/$2a/'`
-      hash: "$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W"
+      hash: "$2a$10$GIfuOhkTsbmdKISjFOFA6u88cr8BS0g3sZYp1kKJ3Fb/CUVryW1i2"
       # these are used within Kubermatic to identify the user
       username: "TODO-STUDENT-EMAIL@loodse.training"
       userID: "08a8684b-db88-4b73-90a9-3cd1661f5466"
 
-minio:
-  storeSize: '100Gi'
-  storageClass: kubermatic-backup
-  # access key/secret for the exposed minio S3 gateway
-  credentials:
-    # generate a key with:
-    # cat /dev/urandom | tr -dc A-Za-z0-9 | head -c8
-    # access key length should be at least 3 characters
-    accessKey: "TODO-GENERATED-MINIO-AWS-ACCESS-KEY"
-    # generate a key with:
-    # cat /dev/urandom | tr -dc A-Za-z0-9 | head -c12
-    # secret key length should be at least 8 characters
-    secretKey: "TODO-GENERATED-MINIO-AWS-SECRET-KEY"

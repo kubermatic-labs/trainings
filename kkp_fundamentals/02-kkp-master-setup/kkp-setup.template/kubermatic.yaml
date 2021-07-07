@@ -18,15 +18,6 @@ spec:
     # cat /dev/urandom | tr -dc A-Za-z0-9 | head -c32
     issuerCookieKey: TODO-A-RANDOM-KEY
     serviceAccountKey: TODO-A-RANDOM-KEY
-  imagePullSecret: |
-    {
-      "auths": {
-        "quay.io": {
-#          "auth": "TODO-ADD-PULL-SECRET",
-          "email": ""
-        }
-      }
-    }
   ingress:
     # this domain must match what you configured as dex.ingress.host
     # in the values.yaml
