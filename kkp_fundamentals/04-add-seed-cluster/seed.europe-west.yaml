@@ -1,7 +1,7 @@
 apiVersion: kubermatic.k8s.io/v1
 kind: Seed
 metadata:
-  name: europe-west
+  name: kubermatic
   namespace: kubermatic
 spec:
   # reference to the kubeconfig to use when connecting to this seed cluster
@@ -12,7 +12,7 @@ spec:
   # Optional: Country of the seed as ISO-3166 two-letter code, e.g. DE or UK.
   # For informational purposes in the Kubermatic dashboard only.
   country: EU
-  location: "K1 Cluster"
+  location: "Frankfurt"
   # Datacenters contains a map of the possible datacenters (DCs) in this seed.
   # Each DC must have a globally unique identifier (i.e. names must be unique
   # across all seeds).
@@ -21,14 +21,14 @@ spec:
     #============== GCP ===============
     #==================================
     ### configs the GCE data center of this lab as an available region for the GCP provider
-    gce-eu-west-4:
-      country: NL
-      location: "Eemshaven"
+    gce-eu-west-3:
+      country: DE
+      location: "Frankfurt"
       spec:
         gcp:
           # Region to use, for example "europe-west3", for a full list of regions see
           # https://cloud.google.com/compute/docs/regions-zones/
-          region: "europe-west4"
+          region: "europe-west3"
           # Optional: Regional clusters spread their resources across multiple availability zones.
           # Refer to the official documentation for more details on this:
           # https://cloud.google.com/kubernetes-engine/docs/concepts/regional-clusters
